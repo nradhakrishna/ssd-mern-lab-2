@@ -1,0 +1,450 @@
+MERN
+Aaditya Vardhan Narain
+16th September, 2025
+https://aadityanarain2003.github.io/about/
+
+Preface:
+
+●
+●
+●
+●
+
+●
+
+Have node and npm installed https://nodejs.org/en/download
+Be familiar with Javascript and ES6
+syntax
+Be familiar with Restful and
+Postman
+Most likely be working with a linux
+based OS ( I will be using linux the
+whole time )
+Be familiar with HTML, CSS and
+DOM
+
+Some Resources:
+
+●
+
+https://nodejs.org/en/learn/getting-sta
+rted/introduction-to-nodejs
+
+●
+
+https://expressjs.com/
+
+●
+
+https://medium.com/nerd-for-tech/clie
+nt-server-architecture-explained-with-e
+xamples-diagrams-and-real-world-appli
+cations-407e9e04e2d1
+
+Content: ( Node and
+Express )
+
+1.
+2.
+3.
+4.
+
+Client - Server Schema
+Why MERN
+What are we gonna do in both these
+sessions
+The actual content
+
+Why MERN ???
+M – MongoDB (Database)
+E – Express.js (Backend framework)
+
+It is a single page application, with
+a decoupled architecture.
+
+R – React.js (Frontend library)
+
+It is reusable.
+
+N – Node.js (Runtime environment)
+
+It is real time and dynamic.
+It is build on Restful or GraphQL.
+
+one language, modern stack, fast
+development, easy JSON ﬂow.
+
+Two Sessions ( 9th and 12th )
+Session 1:
+●
+●
+●
+●
+
+Understand what is Node and
+Express.
+We will build a single server for a
+To-Do List App.
+CRUD API calls for In-Memory
+system for this To-Do List Server.
+Express File Structure and Routers.
+
+Take Home 1:
+●
+
+Add support for MongoDB. That is to
+make sure the Data in this To-Do List
+Server is Persistent
+
+Session 2:
+●
+●
+●
+●
+
+Understand what is React.
+Understand how to design
+Components.
+Understand what Hooks are.
+Understand what CORS is.
+
+Take Home 2:
+●
+
+Dockerize the full MERN app into a
+container and use it locally as your
+personal To-Do App.
+
+Setup your folder initialize the app
+●
+●
+●
+●
+
+Initialize a folder
+git init
+Create a folder called Backend
+npm init -v
+
+You will now notice that two items get created
+which are node_module folder and
+package-lock.json
+
+●
+You will notice that a package.json ﬁle got created
+in this folder with some initial values.
+●
+●
+
+Now do ‘npm install express’
+
+Now add the .gitignore ﬁle in the root
+directory ( you need to only add what is
+speciﬁed by us )
+Create a new ﬁle in the backend folder called
+server.js
+
+git checkout step-01
+
+Add the following code to server.js
+import express from "express";
+
+On the terminal run ‘node server.js’
+
+const app= express();
+
+And voila you ran your ﬁrst express server
+
+app.listen(5001,() => {
+console.log("Server started at Port 5001");
+});
+
+But do you see an error printed on the ﬁrst line
+
+Go to package.json and add this
+"dev" : "node server.js"
+
+Inside the script { }
+You got an alias now, you can simply run ‘npm run
+dev’
+
+Go to package.json and add this
+“type”:”module”
+Type Module tells that we are using the modern ES
+syntax and not old school JS
+
+But what is this package.json…
+In one sense it is the core ﬁle in a Node
+application. It is a blueprint for your
+application.
+
+{
+"name": "backend",
+"version": "1.0.0",
+"description": "",
+"main": "index.js",
+"scripts": {
+
+Deﬁnes your project (name, version, description)
+
+"test": "echo \"Error: no test specified\" && exit
+
+Lists dependencies (like Express, React, etc.)
+
+1"
+},
+
+Deﬁnes scripts you can run (like npm start, npm
+test)
+
+"type":"module",
+"keywords": [],
+"author": "",
+"license": "ISC",
+
+Contains metadata needed for Node.js and npm
+
+"dependencies": {
+"express": "^5.1.0"
+}
+}
+
+https://docs.npmjs.com/cli/v11/configuring-npm/package-json
+
+Don’t Mess with package-lock.json
+If you noticed, after you ran npm install
+express, two new things popped up, one is
+package-lock.json and the other is
+node_module.
+
+package-lock.json is a lockﬁle that:
+●
+
+Records the exact versions of all installed
+packages (and their dependencies).
+
+●
+
+Ensures that everyone working on the
+project gets the exact same setup, even
+across different machines or at different
+times.
+
+●
+
+Is automatically generated when you run
+npm install.
+
+Always commit package-lock.json if you
+building an app.
+
+Let’s Now create some simple APIs
+app.get("/api/notes", (req, res) => {
+
+What do you notice that you got a response
+
+res.send("You got some notes");
+
+Let’s understand some format. This uses ES6 arrow
+function where app.get makes a callback to the
+function you wrote.
+
+});
+
+Add the above code to your server.js ﬁle before
+app.listen.
+
+“api/notes” is the endpoint
+
+And run ‘ npm run dev’
+
+“req” is whatever requests are coming in
+
+Go and hit this url on your browser
+
+“res” is whatever response is going out
+
+http://localhost:5001/api/notes
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides
+
+Isn’t it annoying to stop and start the server again and
+again…
+
+Here comes ‘Nodemon’ to save you
+
+It watches for changes in your ﬁles
+(e.g., .js, .ts, .json, etc.)
+
+run:
+npm install -g nodemon
+Add this to scripts in package.json
+"dev": "nodemon server.js"
+
+When a ﬁle changes, it restarts your
+app automatically — no need to stop
+and start the server manually every
+time.
+
+git checkout step-02
+
+What are Routers
+A router in Express is like a mini Express app — it
+can:
+●
+●
+●
+
+Handle routes (like /users, /posts, etc.)
+Use middleware
+Be mounted in your main app
+
+Instead of writing everything in server.js:
+
+app.get('/users', ...)
+app.post('/users', ...)
+app.get('/products', ...)
+app.post('/products', ...)
+
+export default is used to export a single value,
+function, object, or class from a ﬁle (module), so
+that it can be imported easily elsewhere.
+
+You split them:
+●
+
+routes/users.js → handles /users
+
+●
+
+routes/products.js → handles /products
+
+Cleaner, modular, and easier to maintain
+
+File Structure
+backend
+●
+●
+●
+
+package.json
+.env
+src
+○
+○
+
+●
+
+Other ﬁles in src ( that is your source code )
+server.js
+
+*.conﬁg.js ﬁles
+
+IIt can be anything
+you like. There is no
+standard across. I use
+the one on the right
+hand side
+
+git checkout step-03
+
+What are Dev Dependencies
+Dev dependencies are simply packages
+that are required during development
+and not in production.
+These won’t get added to the build
+image.
+
+"devDependencies": {
+"@babel/core": "^7.28.3",
+"@babel/preset-env": "^7.28.3",
+"babel-jest": "^30.0.5",
+"supertest": "^7.1.4"
+}
+
+What is .env ﬁle
+A .env ﬁle is a text ﬁle that stores environment
+variables. key-value pairs used to conﬁgure your
+app without hardcoding secrets or
+environment-speciﬁc settings in your code.
+
+npm install dotenv
+
+import dotenv from "dotenv";
+dotenv.config();
+
+Why use a .env ﬁle?
+●
+
+Keep secrets (DB URLs, API keys) out of source code
+
+●
+
+Easily switch between environments (development,
+testing, production)
+
+●
+
+Avoid hardcoding conﬁg values inside JS ﬁles
+
+●
+
+Safe to change without touching the code
+
+git checkout step-04
+
+Use this as your env ﬁle
+PORT=5001
+NODE_ENV=development
+MONGO_URI=mongodb://127.0.0.1:27017/SSD
+
+What is a middleware
+Middleware is a function that has access to the
+request, response, and next function in the
+lifecycle of an HTTP request in an Express app.
+
+function middleware(req, res, next) {
+// Do something with req or res
+next(); // Pass control to the next middleware
+}
+
+Typical Use Cases:
+●
+●
+
+Logging
+Authentication
+
+Used with
+app.use(express.json());
+app.use("/api/notes", router);
+
+git checkout step-05
+
+Your Take Home Tasks
+Compulsory Tasks:
+
+Extra if you want to:
+
+1.
+
+1.
+
+2.
+
+Port these API to your own MongoDB
+clusters. It can be either local or cloud
+storage. Use Mongoose for the same.
+Try to Make it work with local itself.
+
+Due Date: 18th Sep, 2025 11:59 p.m.
+
+2.
+
+Can you play around and add other routers to
+it.
+Can you create two or more servers with
+Mongo, Express and Node and make them
+talk to each other ???
+
+
